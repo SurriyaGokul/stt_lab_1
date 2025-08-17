@@ -31,7 +31,7 @@ def shadow_example() -> Tuple[list, str]:
     return items, message
 
 
-class Person:
+class Person: # pylint: disable=too-few-public-methods
     """A simple class representing a person."""
 
     def __init__(self, name: str, age: int = 25) -> None:

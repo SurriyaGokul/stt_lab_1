@@ -1,0 +1,20 @@
+name: Pylint
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pylint
+        run: pip install --upgrade pip pylint
+      - name: Run pylint
+        run: |
+          echo "Running pylint on tracked .py files..."
+          pylint $(git ls-files '*.py')

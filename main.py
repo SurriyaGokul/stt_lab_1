@@ -1,45 +1,64 @@
-# Bad Python file with many fundamental pylint errors
+"""Cleaned version of Assignment 1 Python code.
+
+This file demonstrates corrected code that passes pylint checks.
+"""
 
 import os
-import random
-import math, sys   # multiple imports on one line, some unused
+import math
+from typing import Tuple
 
-x = 10
-y = "20"  # wrong type usage
 
-def add(a, b, c, d):   # too many args, no docstring
-    result = a + b
-    if a > 5:
-        return result
-        print("This will never run")  # unreachable code
+X = 10
+Y = 20
 
-def broken_function(): # no return, wrong indentation
-  val = 5
-   val2 = 10   # bad indentation
-  return val + val2
 
-def shadow():
-    list = [1,2,3]  # shadows built-in 'list'
-    str = "hello"   # shadows built-in 'str'
-    return list, str
+def add(a: int, b: int) -> int:
+    """Return the sum of two integers."""
+    return a + b
 
-class badclass:  # lowercase, no docstring
-  def __init__(self, name):
-      self.name = name
-      self.age = 25
-      self.temp = math.sqrt(100)  # stored but never used
 
-  def sayhi(self):
-      print("hi my name is " + self.name)
-      return  # returns nothing
+def safe_divide(a: float, b: float) -> float:
+    """Return division result, or 0 if division by zero occurs."""
+    if b == 0:
+        return 0.0
+    return a / b
 
-def main():
-    add(1, 2, 3, 4)
-    broken_function()
-    shadow()
-    p = badclass("Alice")
-    p.sayhi()
-    unused_var = os.getcwd()  # never used
-    print(x + y)  # type error: int + str
 
-main() # no __name__ guard
+def shadow_example() -> Tuple[list, str]:
+    """Return a list and a string (no shadowing)."""
+    items = [1, 2, 3]
+    message = "hello"
+    return items, message
+
+
+class Person:
+    """A simple class representing a person."""
+
+    def __init__(self, name: str, age: int = 25) -> None:
+        """Initialize a person with name and age."""
+        self.name = name
+        self.age = age
+        self.temp = math.sqrt(100)
+
+    def say_hi(self) -> str:
+        """Return a greeting message."""
+        return f"Hi, my name is {self.name}, I am {self.age} years old."
+
+
+def main() -> None:
+    """Entrypoint for demo."""
+    print(add(X, Y))
+    print(safe_divide(10, 2))
+
+    items, message = shadow_example()
+    print(items, message)
+
+    person = Person("Alice")
+    print(person.say_hi())
+
+    cwd = os.getcwd()
+    print("Current working directory:", cwd)
+
+
+if __name__ == "__main__":
+    main()
